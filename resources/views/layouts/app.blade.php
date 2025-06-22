@@ -37,6 +37,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/feedback">Đánh giá</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user/orders">Đơn hàng của bạn</a>
+                    </li>
                 </ul>
                 <div class="d-flex">
                     <a href="/cart" class="btn btn-outline-light me-2">
