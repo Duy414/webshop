@@ -17,14 +17,13 @@
             @foreach($featuredProducts as $product)
             <div class="col-md-3 mb-4">
                 <div class="card h-100">
+                    <a href="{{ route('products.show', $product['id']) }}" class="card h-100 shadow-sm">
                     <img src="{{ asset('storage/' . $product->image) }}" alt="Ảnh sản phẩm">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $product->name }}</h5>
-                        <p class="card-text text-danger fw-bold">{{ number_format($product->price) }} VNĐ</p>
-                        <a href="{{ route('products.show', $product['id']) }}" class="btn btn-primary w-100">
-                            <i class="bi bi-eye me-1"></i> Xem chi tiết
-                        </a>
-                    </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $product->name }}</h5>
+                            <p class="card-text text-danger fw-bold">{{ number_format($product->price) }} VNĐ</p>
+                        </div>
+                    </a>
                 </div>
             </div>
             @endforeach

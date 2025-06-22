@@ -27,14 +27,11 @@
                             <td>{{ Str::limit($feedback->message, 80) }}</td>
                             <td>{{ $feedback->created_at->format('d/m/Y H:i') }}</td>
                             <td>
-                                <a href="{{ route('admin.feedbacks.show', $feedback->id) }}" class="btn btn-sm btn-info" title="Xem chi tiết">
-                                    <i class="fas fa-eye"></i>
-                                </a>
                                 <form action="{{ route('admin.feedbacks.destroy', $feedback->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" title="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa phản hồi này?')">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="fas fa-trash"></i>Xóa
                                     </button>
                                 </form>
                             </td>

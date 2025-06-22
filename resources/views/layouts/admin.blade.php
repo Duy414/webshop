@@ -12,12 +12,12 @@
     <div class="d-flex">
         <!-- Sidebar -->
         <div class="bg-dark text-white vh-100 p-3" style="width: 250px; position: fixed;">
-            <h4 class="py-3 text-center">Admin Panel</h4>
+            <h4 class="py-3 text-center">Quản lý trang web</h4>
             <hr>
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <a href="{{ route('admin.dashboard') }}" class="nav-link text-white">
-                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                        <i class="bi bi-speedometer2 me-2"></i> Bảng điều khuyển
                     </a>
                 </li>
                 <li>

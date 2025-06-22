@@ -52,13 +52,13 @@
                             <td>{{ $product->created_at->format('d/m/Y') }}</td>
                             <td>
                                 <a href="{{ route('admin.products.edit', $product['id']) }}" class="btn btn-sm btn-primary" title="Sửa">
-                                    <i class="fas fa-edit"></i>
+                                    <i class="fas fa-edit"></i>Sửa
                                 </a>
                                 <form action="{{ route('admin.products.destroy', $product['id']) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" title="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa sản phẩm này?')">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="fas fa-trash"></i>Xóa
                                     </button>
                                 </form>
                             </td>

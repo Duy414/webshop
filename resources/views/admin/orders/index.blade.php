@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -29,7 +29,7 @@
                 <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
                 <td>
                     <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-sm btn-info">
-                        <i class="fas fa-eye"></i>
+                        <i class="fas fa-eye" ></i>Cập nhật đơn hàng
                     </a>
                 </td>
             </tr>

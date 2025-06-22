@@ -29,6 +29,8 @@
         </tbody>
     </table>
 
-    {{ $orders->links() }}
+    <div class="d-flex justify-content-center">
+        {{ $orders->links('pagination::bootstrap-5') }}
+    </div>
 </div>
 @endsection

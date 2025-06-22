@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->decimal('total', 10, 2);
             $table->string('status')->default('pending');
+            $table->timestamps();
         });
     }
 

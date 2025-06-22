@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin', // Thêm trường mới vào fillable
+        'address',
     ];
 
     /**
@@ -57,5 +58,9 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

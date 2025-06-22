@@ -12,12 +12,16 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    
     /**
      * Hiển thị danh sách người dùng
      */
     public function index()
     {
-        Gate::authorize('admin-access');
+        if (!Auth::user()->is_admin) {
+            abort(403, 'Unauthorized action.');
+        }
+        
         $users = User::orderBy('created_at', 'desc')->paginate(10);
         return view('admin.users.index', compact('users'));
     }
@@ -60,10 +64,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        Gate::authorize('admin-access');
-        return view('admin.users.edit', compact('user'));
+        $allUsers = User::all(); // Lấy tất cả người dùng
+        return view('admin.users.edit', [
+            'user' => $user,
+            'users' => $allUsers // Truyền thêm biến users
+        ]);
     }
-
     /**
      * Cập nhật thông tin người dùng
      */
@@ -117,6 +123,41 @@ class UserController extends Controller
     {
         return view('user.profile');
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-    
+    public function makeAdmin(User $user)
+    {
+        Gate::authorize('admin-access');
+        
+        // Không thể tự cấp quyền admin cho chính mình
+        if ($user->id === Auth::id()) {
+            return redirect()->back()
+                ->with('error', 'Bạn không thể tự cấp quyền admin cho chính mình!');
+        }
+        
+        $user->update(['is_admin' => true]);
+        
+        return redirect()->back()
+            ->with('success', 'Đã cấp quyền admin cho người dùng: ' . $user->name);
+    }
+
+    public function revokeAdmin(User $user)
+    {
+        Gate::authorize('admin-access');
+        
+        // Không thể tự thu hồi quyền admin của chính mình
+        if ($user->id === Auth::id()) {
+            return redirect()->back()
+                ->with('error', 'Bạn không thể tự thu hồi quyền admin của chính mình!');
+        }
+        
+        $user->update(['is_admin' => false]);
+        
+        return redirect()->back()
+            ->with('success', 'Đã thu hồi quyền admin của người dùng: ' . $user->name);
+    }
+        
 }

@@ -10,17 +10,23 @@ class ProductController extends Controller
     /**
      * Hiển thị danh sách sản phẩm (có phân trang)
      */
-    public function index()
+    public function index(Request $request) // Thêm Request làm tham số
     {
-        $products = Product::where('stock', '>', 0) // Chỉ hiển thị sản phẩm còn hàng
+        // Lấy giá trị tìm kiếm từ URL
+        $search = $request->input('search');
+        
+        // Sửa đoạn truy vấn hiện tại của bạn
+        $products = Product::query() // Bắt đầu bằng query()
+            ->when($search, function ($query, $search) {
+                return $query->where('name', 'LIKE', "%{$search}%")
+                            ->orWhere('description', 'LIKE', "%{$search}%");
+            })
+            // GIỮ NGUYÊN CÁC ĐIỀU KIỆN HIỆN TẠI CỦA BẠN
             ->orderBy('created_at', 'desc')
-            ->paginate(12);
+            ->paginate(10);
 
         return view('products.index', compact('products'));
     }
-    
-
-
 
     public function store(Request $request)
     {
@@ -54,10 +60,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        // Kiểm tra tồn tại sản phẩm (tự động bởi Route Model Binding)
-        if ($product->stock <= 0) {
-            abort(404, 'Sản phẩm đã hết hàng');
-        }
+        $product->load(['reviews.user']);
 
         return view('products.show', compact('product'));
     }

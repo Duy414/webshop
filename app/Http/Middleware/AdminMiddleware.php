@@ -10,6 +10,15 @@ class AdminMiddleware
         if (Auth::check() && Auth::user()->is_admin) {
             return $next($request);
         }
-        abort(403, 'Bạn không có quyền truy cập.');
+
+        // Thêm log chi tiết
+        \Log::error('Admin access denied', [
+            'user_id' => Auth::id(),
+            'is_admin' => Auth::check() ? Auth::user()->is_admin : false,
+            'route' => $request->route()->getName(),
+            'ip' => $request->ip()
+        ]);
+
+        abort(403, 'This action is unauthorized.');
     }
 }

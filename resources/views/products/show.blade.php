@@ -68,5 +68,39 @@
             </div>
         </div>
     </div>
+    <!-- Đánh giá sản phẩm -->
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <!-- Form đánh giá -->
+            @include('products._review_form')
+            
+            <!-- Danh sách đánh giá -->
+            @include('products._reviews_list')
+        </div>
+    </div>
 </div>
+@endsection
+@section('scripts')
+@auth
+<script>
+    $(document).ready(function() {
+        // Xử lý sự kiện sửa đánh giá
+        $('.edit-review-btn').click(function() {
+            const reviewId = $(this).data('review-id');
+            const rating = $(this).data('rating');
+            const title = $(this).data('title');
+            const comment = $(this).data('comment');
+            
+            // Cập nhật form modal
+            $('#editReviewForm').attr('action', `/reviews/${reviewId}`);
+            $(`#editReviewForm input[name="rating"][value="${rating}"]`).prop('checked', true);
+            $('#edit-title').val(title);
+            $('#edit-comment').val(comment);
+            
+            // Hiển thị modal
+            $('#editReviewModal').modal('show');
+        });
+    });
+</script>
+@endauth
 @endsection

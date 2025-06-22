@@ -16,6 +16,7 @@ class Order extends Model
         'total',
         'status',
     ];
+    public $timestamps = true;
 
     public function getStatusTextAttribute()
     {

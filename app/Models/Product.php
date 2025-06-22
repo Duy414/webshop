@@ -32,9 +32,21 @@ class Product extends Model
         'stock' => 'integer'     // Ép kiểu số nguyên
     ];
     
-    /**
-     * Các trường ngày tháng tự động (timestamps).
-     * Mặc định Laravel sẽ tự quản lý created_at và updated_at
-     */
-    // public $timestamps = true; // Mặc định đã được bật
+    
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    // Accessor cho số lượng reviews
+    public function getReviewsCountAttribute()
+    {
+        return $this->reviews->count();
+    }
+
+    // Accessor cho điểm trung bình
+    public function getAverageRatingAttribute()
+    {
+        return $this->reviews->avg('rating');
+    }
 }
